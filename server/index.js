@@ -2,9 +2,13 @@
 
 
 const keypressHandler = require('./js/keypressHandler');
+const messageQueue = require('./js/messageQueue.js')
 // Will eventually need this callback to send message to client's http handler
 // to update swim direction
-keypressHandler.initialize(message => console.log(`Message received: ${message}`));
+keypressHandler.initialize(message => {
+  console.log(`Message received: ${message}`);
+  messageQueue.enqueue(message);
+});
 
 const httpHandler = require('./js/httpHandler');
 

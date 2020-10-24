@@ -5,29 +5,43 @@
   //
   // TODO: build the swim command fetcher here
   // write an ajax get request for a random command
-  const ajaxGetRandom = () => {
-    console.log('AJAX');
+  const ajaxGet = () => {
     $.ajax({
       type: 'GET',
-      url: serverUrl,
-      cache: false,
-      contentType: false,
-      processData: false,
+      url: serverUrl, //http://127.0.0.1:3000/
+                      //http://127.0.0.1:3000/backgroundImage
       success: (direction) => {
         // trigger swim movement
+        console.log('SUCCESS', direction);
         SwimTeam.move(direction);
-        window.location = window.location.href;
+      },
+      error: (error) => {
+        console.log(error)
       }
     });
   }
+  setInterval(ajaxGet, 500);
 
-  setInterval(ajaxGetRandom(), 5000)
+  const ajaxGetImage = () => {
+    $.ajax({
+      type: 'GET',
+      url: 'http://127.0.0.1:3000/background.jpg',
+      success: (backgroundImage) => {
+        console.log('SUCCESSIMAGE', backgroundImage);
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    });
+  }
+  $('#getImage').click(ajaxGetImage);
+  // $('#randomSwim').click(ajaxGet);
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
   // Note: remember to fix the URL below.
   /////////////////////////////////////////////////////////////////////
 
-  const ajaxFileUplaod = (file) => {
+  const ajaxFileUpload = (file) => {
     var formData = new FormData();
     formData.append('file', file);
     $.ajax({
