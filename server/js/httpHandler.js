@@ -3,7 +3,7 @@ const path = require('path');
 const headers = require('./cors');
 const multipart = require('./multipartUtils');
 
-// Path for the background image ///////////////////////
+// Path dfor the background image ///////////////////////
 module.exports.backgroundImageFile = path.join('.', 'background.jpg');
 ////////////////////////////////////////////////////////
 
@@ -12,9 +12,21 @@ module.exports.initialize = (queue) => {
   messageQueue = queue;
 };
 
+var movement = ['up', 'down', 'left', 'right'];
+
 module.exports.router = (req, res, next = ()=>{}) => {
   console.log('Serving request type ' + req.method + ' for url ' + req.url);
-  res.writeHead(200, headers);
+  console.log(req);
+  if (req.method === 'GET') {
+    res.write(movement[Math.floor(Math.random() * (movement.length))]);
+  }
+
+  res.writeHead(200, headers);//edit code: figure out what will happen in different scenarios
   res.end();
   next(); // invoke next() at the end of a request to help with testing!
 };
+
+
+// use MVC to diagram
+// think about how this is going to behave on all the possiblities the router can have, look at the tests for more scenarios
+// keep referencing mock server

@@ -2,6 +2,8 @@
 
 
 const keypressHandler = require('./js/keypressHandler');
+// Will eventually need this callback to send message to client's http handler
+// to update swim direction
 keypressHandler.initialize(message => console.log(`Message received: ${message}`));
 
 const httpHandler = require('./js/httpHandler');

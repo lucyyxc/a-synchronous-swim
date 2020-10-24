@@ -4,8 +4,24 @@
 
   //
   // TODO: build the swim command fetcher here
-  //
+  // write an ajax get request for a random command
+  const ajaxGetRandom = () => {
+    console.log('AJAX');
+    $.ajax({
+      type: 'GET',
+      url: serverUrl,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: (direction) => {
+        // trigger swim movement
+        SwimTeam.move(direction);
+        window.location = window.location.href;
+      }
+    });
+  }
 
+  setInterval(ajaxGetRandom(), 5000)
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
   // Note: remember to fix the URL below.
@@ -17,7 +33,7 @@
     $.ajax({
       type: 'POST',
       data: formData,
-      url: 'FILL_ME_IN',
+      url: 'FILL_ME_IN', // ip and port defined in server's index.js
       cache: false,
       contentType: false,
       processData: false,
